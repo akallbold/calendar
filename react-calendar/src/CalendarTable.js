@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
+import Event from './Event'
+
 
 class CalendarTable extends Component {
 
-  // firstDay = () => {
-  //   new Date(this.year, this.month, 1)
-  // }
-
-  firstOfMonth = new Date(this.props.currentDate.getFullYear(), this.props.currentDate.getMonth(), 1)
-
+  currentMonth = this.props.currentDate.getMonth()
+  currentYear = this.props.currentDate.getFullYear()
+  firstOfMonth = new Date(this.currentYear, this.currentMonth, 1)
   firstOfMonthDay = this.firstOfMonth.getDay();
 
+  timer = 0;
+  delay = 200;
+  prevent = false;
 
+  doClickAction() {
+    console.log(' click');
+  }
+  doDoubleClickAction() {
+    this.props.handleNewEvent()
+  }
+  handleClick() {
+    let me = this;
+    this.timer = setTimeout(function() {
+      if (!this.prevent) {
+        me.doClickAction();
+      }
+      this.prevent = false;
+    }, this.delay);
+  }
+  handleDoubleClick(){
+    clearTimeout(this.timer);
+    this.prevent = true;
+    this.doDoubleClickAction();
+  }
 
 
   createDayHeader = (dayArray) => {
@@ -23,24 +45,31 @@ class CalendarTable extends Component {
     let dayCounter = 0
     let output = []
     let table = []
-    for (let i = 0; i < 5; i++) {
+    for (let row = 0; row < 5; row++) {
       let children = []
-      for (let j = 0; j < 7; j++) {
-        if (i === 0){
-          if (j >= this.firstOfMonthDay){
+      for (let col = 0; col < 7; col++) {
+        if (row === 0){
+          if (col >= this.firstOfMonthDay){
             dayCounter++
-            children.push(<td key= {j}>{dayCounter}</td>)
+            children.push(<td key= {col} onClick={this.handleClick.bind(this)}
+              onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
           } else {
             dayCounter = ""
-            children.push(<td key= {j}>{dayCounter}</td>)
+            children.push(<td key= {col} onClick={this.handleClick.bind(this)}
+    onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
           }
         } else {
           dayCounter++
-                  children.push(<td key= {j}>{dayCounter}</td>)
+          if (dayCounter <= this.props.daysInMonth[this.currentMonth]){
+            children.push(<td key= {col} onClick={this.handleClick.bind(this)}
+    onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
+          } else {
+            children.push(<td key= {col} onClick={this.handleClick.bind(this)}
+    onDoubleClick = {this.handleDoubleClick.bind(this)}>""</td>)
+          }
         }
-
       }
-      table.push(<tr key = {i}>{children}</tr>)
+      table.push(<tr key = {row}>{children}</tr>)
     }
     output.push(<tbody key = "Hello?">{table}</tbody>)
     return output
@@ -49,9 +78,8 @@ class CalendarTable extends Component {
 
 
   render() {
-    // debugger
     return (
-      <table className="col s12 table">
+      <table className="col s9 table">
         <thead>
           <tr align="center">
             {this.createDayHeader(this.props.days)}
