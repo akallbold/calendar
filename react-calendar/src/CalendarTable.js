@@ -76,16 +76,11 @@ class CalendarTable extends Component {
                 content.push(<Event event={event}/>)
               })
             }
-            children.push(<span>
-                            <td key= {col}
+            children.push(<td key= {col}
                               onClick={this.handleClick.bind(this)}
-                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter} {content}</td>
-
-                          </span>)
-                              // children.push()
-                              //replace with relevent events
-                              // children.push(<Event/>)
-
+                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter} {content}
+                          </td>
+                          )
           } else {
             dayCounter = ""
             children.push(<td key= {col}
