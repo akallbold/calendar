@@ -6,7 +6,8 @@
     "materialize-css": "^1.0.0-rc.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-time-input": "0.0.19"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -16,8 +16,10 @@ class CalendarTable extends Component {
   doClickAction() {
     console.log(' click');
   }
-  doDoubleClickAction() {
-    this.props.handleNewEvent()
+  doDoubleClickAction(date) {
+    this.props.handleNewEvent({year: this.currentYear,
+                               month:this.currentMonth,
+                               date: date})
   }
   handleClick() {
     let me = this;
@@ -28,10 +30,10 @@ class CalendarTable extends Component {
       this.prevent = false;
     }, this.delay);
   }
-  handleDoubleClick(){
+  handleDoubleClick(date){
     clearTimeout(this.timer);
     this.prevent = true;
-    this.doDoubleClickAction();
+    this.doDoubleClickAction(date);
   }
 
 
@@ -52,20 +54,20 @@ class CalendarTable extends Component {
           if (col >= this.firstOfMonthDay){
             dayCounter++
             children.push(<td key= {col} onClick={this.handleClick.bind(this)}
-              onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
+              onDoubleClick = {this.handleDoubleClick.bind(this, dayCounter)}>{dayCounter}</td>)
           } else {
             dayCounter = ""
             children.push(<td key= {col} onClick={this.handleClick.bind(this)}
-    onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
+    onDoubleClick = {this.handleDoubleClick.bind(this, dayCounter)}>{dayCounter}</td>)
           }
         } else {
           dayCounter++
           if (dayCounter <= this.props.daysInMonth[this.currentMonth]){
             children.push(<td key= {col} onClick={this.handleClick.bind(this)}
-    onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
+    onDoubleClick = {this.handleDoubleClick.bind(this, dayCounter)}>{dayCounter}</td>)
           } else {
             children.push(<td key= {col} onClick={this.handleClick.bind(this)}
-    onDoubleClick = {this.handleDoubleClick.bind(this)}>""</td>)
+    onDoubleClick = {this.handleDoubleClick.bind(this, dayCounter)}>""</td>)
           }
         }
       }
