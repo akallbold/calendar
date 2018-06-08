@@ -51,8 +51,8 @@ class CalendarTable extends Component {
     this.props.eventsArray.forEach(event=>{
         if (event.year === this.currentYear && event.month === this.currentMonth){
           if (event.date === date.getDate()){
-            console.log('event match!', event)
-            output.push(<Event event={event}/>)
+            // console.log('event match!', event)
+            output.push(event)
           }
         }
     })
@@ -70,19 +70,16 @@ class CalendarTable extends Component {
             dayCounter++
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
             let relevantEvents = this.events(date)
-            console.log(relevantEvents)
-            let content = ""
+            let content = []
             if (relevantEvents.length>0){
-              debugger
               relevantEvents.map(event => {
-                debugger
-                content += <Event event={event}/>
+                content.push(<Event event={event}/>)
               })
             }
             children.push(<span>
                             <td key= {col}
                               onClick={this.handleClick.bind(this)}
-                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter}{content}</td>
+                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter} {content}</td>
 
                           </span>)
                               // children.push()
@@ -100,17 +97,27 @@ class CalendarTable extends Component {
           if (dayCounter <= this.props.daysInMonth[this.currentMonth]){
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
             let relevantEvents = this.events(date)
-            console.log(relevantEvents)
+            let content = []
+            if (relevantEvents.length>0){
+              relevantEvents.map(event => {
+                content.push(<Event event={event}/>)
+              })
+            }
             children.push(<td key= {col}
                               onClick={this.handleClick.bind(this)}
-                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter}</td>)
+                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter} {content}</td>)
           } else {
-            let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
-            let relevantEvents = this.events(date)
-            console.log(relevantEvents)
+            // let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
+            // let relevantEvents = this.events(date)
+            // let content = []
+            // if (relevantEvents.length>0){
+            //   relevantEvents.map(event => {
+            //     content.push(<Event event={event}/>)
+            //   })
+            // }
             children.push(<td key= {col}
                               onClick={this.handleClick.bind(this)}
-                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>""</td>)
+                              onDoubleClick = {this.handleDoubleClick.bind(this)}>""</td>)
           }
         }
       }
