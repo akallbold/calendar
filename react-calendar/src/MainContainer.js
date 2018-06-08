@@ -16,6 +16,7 @@ class MainContainer extends Component {
     description:"",
     startTime:"",
     endTime:""
+    
   }
 
   handleNewEvent = (eventDate) => {

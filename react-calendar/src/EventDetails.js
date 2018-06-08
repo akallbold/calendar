@@ -9,6 +9,7 @@ class EventDetails extends Component {
     // debugger
     return (
       <div className= "">
+        <p>Event Details show up here!</p>
       </div>
     );
   }

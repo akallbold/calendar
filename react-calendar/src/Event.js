@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import EventDetails from './EventDetails'
+import Popup from "reactjs-popup";
 
 class Event extends Component {
 
 
-
+handleEventClick = () => {
+  // console.log("clicked on event")
+  // return <EventDetails event={this.props.event}/>
+}
 
   render() {
-    // debugger
+    console.log("eventProps", this.props)
     return (
-      <div className= "row">
-        <span className= "col s6 left">
-          <span className= "month" >{this.props.months[this.props.currentDate.getMonth()]} </span>
-          <span className= "year">{this.props.currentDate.getFullYear()}</span>
-        </span>
-        <span className= "navButtons col s6 right">
-          <button>Prev</button>
-          <button>Today</button>
-          <button>Next</button>
-        </span>
-
+      <div onClick = {this.handleEventClick}>
+        <Popup className= "event" trigger={<button>event</button>} position="right center">
+          <div className= "event">
+            <h6>Event Name</h6>
+            <h6>Event Start Time</h6>
+            <h6>Event End Time</h6>
+          </div>
+        </Popup>
       </div>
     );
   }

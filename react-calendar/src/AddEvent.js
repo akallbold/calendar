@@ -42,7 +42,6 @@ createElements() {
   } else {
     return (
       <div className="col s3 ">
-        Hello
       </div>
     );
   }

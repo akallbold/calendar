@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 
 class Header extends Component {
 
+handlePrevMonth = () => {
+  console.log("prev month")
+}
 
+handleToday = () => {
+  console.log("today")
+}
+
+handleNextMonth = () => {
+  console.log("next month")
+}
 
 
   render() {
@@ -14,9 +24,9 @@ class Header extends Component {
           <span className= "year">{this.props.currentDate.getFullYear()}</span>
         </span>
         <span className= "navButtons col s6 right">
-          <button>Prev</button>
-          <button>Today</button>
-          <button>Next</button>
+          <button onClick={this.handlePrevMonth}>Prev</button>
+          <button onClick={this.handleToday}>Today</button>
+          <button onClick={this.handleNextMonth}>Next</button>
         </span>
 
       </div>

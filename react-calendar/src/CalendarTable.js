@@ -44,6 +44,20 @@ class CalendarTable extends Component {
     })
   }
 
+
+
+  events = (date) => {
+    let output = []
+    this.props.eventsArray.forEach(event=>{
+        if (event.year === this.currentYear && event.month === this.currentMonth){
+          if (event.date === date.getDate()){
+            console.log('event match!', event)
+            output.push(<Event event={event}/>)
+          }
+        }
+    })
+    return output
+  }
   createCalendarTable = () => {
     let dayCounter = 0
     let output = []
@@ -55,9 +69,26 @@ class CalendarTable extends Component {
           if (col >= this.firstOfMonthDay){
             dayCounter++
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
-            children.push(<td key= {col}
+            let relevantEvents = this.events(date)
+            console.log(relevantEvents)
+            let content = ""
+            if (relevantEvents.length>0){
+              debugger
+              relevantEvents.map(event => {
+                debugger
+                content += <Event event={event}/>
+              })
+            }
+            children.push(<span>
+                            <td key= {col}
                               onClick={this.handleClick.bind(this)}
-                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter}</td>)
+                              onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter}{content}</td>
+
+                          </span>)
+                              // children.push()
+                              //replace with relevent events
+                              // children.push(<Event/>)
+
           } else {
             dayCounter = ""
             children.push(<td key= {col}
@@ -68,11 +99,15 @@ class CalendarTable extends Component {
           dayCounter++
           if (dayCounter <= this.props.daysInMonth[this.currentMonth]){
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
+            let relevantEvents = this.events(date)
+            console.log(relevantEvents)
             children.push(<td key= {col}
                               onClick={this.handleClick.bind(this)}
                               onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter}</td>)
           } else {
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
+            let relevantEvents = this.events(date)
+            console.log(relevantEvents)
             children.push(<td key= {col}
                               onClick={this.handleClick.bind(this)}
                               onDoubleClick = {this.handleDoubleClick.bind(this, date)}>""</td>)
