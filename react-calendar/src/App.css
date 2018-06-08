@@ -41,7 +41,10 @@
 .month{
 font-size: 40px;
 }
+.red-akb{
+  color: rgba(255, 0, 0, 1);
 
+}
 .year{
   font-size: 40px;
   color: gray;

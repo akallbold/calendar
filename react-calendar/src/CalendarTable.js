@@ -6,6 +6,7 @@ class CalendarTable extends Component {
 
   currentMonth = this.props.currentDate.getMonth()
   currentYear = this.props.currentDate.getFullYear()
+  currentDate = this.props.currentDate.getDate()
   firstOfMonth = new Date(this.currentYear, this.currentMonth, 1)
   firstOfMonthDay = this.firstOfMonth.getDay();
 
@@ -71,19 +72,24 @@ class CalendarTable extends Component {
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
             let relevantEvents = this.events(date)
             let content = []
+            let className = ""
+            if (this.currentDate == dayCounter) className="red-akb"
             if (relevantEvents.length>0){
               relevantEvents.map(event => {
                 content.push(<Event event={event}/>)
               })
             }
-            children.push(<td key= {col}
+
+            children.push(<td className = {className}
+                              key= {col}
                               onClick={this.handleClick.bind(this)}
                               onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter} {content}
                           </td>
                           )
           } else {
             dayCounter = ""
-            children.push(<td key= {col}
+            children.push(<td
+                              key= {col}
                               onClick={this.handleClick.bind(this)}
                               onDoubleClick = {this.handleDoubleClick.bind(this)}>{dayCounter}</td>)
           }
@@ -93,12 +99,15 @@ class CalendarTable extends Component {
             let date = new Date(this.currentYear, this.currentMonth, dayCounter, 12, 0, 0, 0)
             let relevantEvents = this.events(date)
             let content = []
+            let className = ""
+            if (this.currentDate == dayCounter) className="red-akb"
             if (relevantEvents.length>0){
               relevantEvents.map(event => {
                 content.push(<Event event={event}/>)
               })
             }
-            children.push(<td key= {col}
+            children.push(<td className = {className}
+                              key= {col}
                               onClick={this.handleClick.bind(this)}
                               onDoubleClick = {this.handleDoubleClick.bind(this, date)}>{dayCounter} {content}</td>)
           } else {
